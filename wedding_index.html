@@ -26,6 +26,22 @@
     .rule { width:1px; height:52px; background:#b5bfae; margin:42px auto; }
     .announcement { font-size:1rem; line-height:2; margin:0; }
     .signature { margin:40px 0 0; font-size:1rem; letter-spacing:.14em; }
+    .gifts { padding:12px 24px 52px; text-align:center; }
+    .gifts h2 { margin-bottom:28px; }
+    .gift-note { margin:0 0 32px; font-size:1rem; line-height:1.9; }
+    .account { border:1px solid #dce2d7; border-radius:8px; text-align:left; background:#fff; }
+    .account summary { padding:20px; cursor:pointer; font-size:1rem; }
+    .account-body { padding:0 20px 20px; border-top:1px solid #edf0e9; }
+    .account-body p { margin:18px 0 8px; line-height:1.6; }
+    .account-number { font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+    button { font:inherit; min-height:44px; border:1px solid #b9c5b3; border-radius:6px; padding:10px 18px; background:var(--paper); color:var(--ink); cursor:pointer; }
+    button:hover { background:#edf2e9; }
+    button:focus-visible, summary:focus-visible, input:focus-visible { outline:3px solid #647e56; outline-offset:4px; }
+    .copy-account { margin-top:12px; font-size:.875rem; }
+    .share { padding:0 24px 30px; text-align:center; }
+    .share button { width:100%; background:var(--sage); }
+    .copy-status { min-height:1.5em; margin:16px 0 0; font-size:.875rem; line-height:1.5; }
+    .manual-copy { width:100%; margin-top:12px; padding:12px; font:inherit; color:var(--ink); border:1px solid #b9c5b3; border-radius:6px; }
     footer { padding:30px 20px; border-top:1px solid #e5e8df; text-align:center; font-size:.75rem; letter-spacing:.2em; color:var(--muted); }
     @media (min-width:600px) { main { margin:36px auto; box-shadow:0 12px 64px #394c3d12; } .cover { min-height:680px; } }
     @media (max-width:340px) { .cover { padding-inline:18px; } .message { padding-inline:18px; } .greeting { font-size:1rem; } }
@@ -46,7 +62,52 @@
       <p class="announcement">별도의 결혼식 없이<br>저희 두 사람의 새로운 시작을 전합니다.<br><br>따뜻한 마음으로 축복해 주세요.</p>
       <p class="signature">안정민 · 박선형 드림</p>
     </section>
+    <section class="gifts" aria-labelledby="gifts-title">
+      <h2 id="gifts-title">마음 전하실 곳</h2>
+      <p class="gift-note">전해주시는 따뜻한 축하의 마음을<br>오래도록 간직하며<br>행복한 모습으로 보답하며 살겠습니다.</p>
+      <details class="account">
+        <summary>신랑 측</summary>
+        <div class="account-body">
+          <p>어머니 <strong>박진숙</strong></p>
+          <p class="account-number">NH농협 <span id="account-number">82114452048552</span></p>
+          <button type="button" class="copy-account" id="copy-account">계좌번호 복사</button>
+          <p class="copy-status" id="account-status" role="status" aria-live="polite"></p>
+          <input class="manual-copy" id="account-manual" aria-label="직접 복사할 계좌번호" readonly hidden>
+        </div>
+      </details>
+    </section>
+    <section class="share" aria-label="청첩장 공유">
+      <button type="button" id="share-link">공유하기</button>
+      <p class="copy-status" id="share-status" role="status" aria-live="polite"></p>
+      <input class="manual-copy" id="share-manual" aria-label="직접 복사할 청첩장 주소" readonly hidden>
+    </section>
     <footer>WITH LOVE &amp; GRATITUDE</footer>
   </main>
+  <script>
+    async function copyText(text, status, manual, successMessage) {
+      status.textContent = '';
+      manual.hidden = true;
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = successMessage;
+      } catch {
+        manual.value = text;
+        manual.hidden = false;
+        manual.focus();
+        manual.select();
+        status.textContent = '자동 복사가 어려워요. 아래 내용을 길게 눌러 복사해 주세요.';
+      }
+    }
+    document.getElementById('copy-account').addEventListener('click', () => {
+      copyText(document.getElementById('account-number').textContent.trim(),
+        document.getElementById('account-status'), document.getElementById('account-manual'),
+        '계좌번호가 복사되었습니다.');
+    });
+    document.getElementById('share-link').addEventListener('click', () => {
+      copyText('https://minsone.github.io/webpage/wedding_index.html',
+        document.getElementById('share-status'), document.getElementById('share-manual'),
+        '링크가 복사되었습니다.');
+    });
+  </script>
 </body>
 </html>
