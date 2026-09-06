@@ -26,6 +26,10 @@
     .rule { width:1px; height:52px; background:#b5bfae; margin:42px auto; }
     .announcement { font-size:1rem; line-height:2; margin:0; }
     .signature { margin:40px 0 0; font-size:1rem; letter-spacing:.14em; }
+    .family { margin:36px auto 0; display:grid; gap:16px; width:fit-content; max-width:100%; }
+    .family p { margin:0; display:flex; flex-wrap:wrap; align-items:baseline; justify-content:center; gap:6px 16px; font-size:1rem; line-height:1.8; }
+    .family .parents { color:var(--muted); }
+    .family strong { font-weight:500; letter-spacing:.08em; }
     .gifts { padding:12px 24px 52px; text-align:center; }
     .gifts h2 { margin-bottom:28px; }
     .gift-note { margin:0 0 32px; font-size:1rem; line-height:1.9; }
@@ -61,6 +65,10 @@
       <div class="rule" aria-hidden="true"></div>
       <p class="announcement">별도의 결혼식 없이<br>저희 두 사람의 새로운 시작을 전합니다.<br><br>따뜻한 마음으로 축복해 주세요.</p>
       <p class="signature">안정민 · 박선형 드림</p>
+      <div class="family" role="group" aria-label="가족 소개">
+        <p><span class="parents">안장덕 · 박진숙의 장남</span> <strong>안정민</strong></p>
+        <p><span class="parents">박영웅 · 박영미의 장녀</span> <strong>박선형</strong></p>
+      </div>
     </section>
     <section class="gifts" aria-labelledby="gifts-title">
       <h2 id="gifts-title">마음 전하실 곳</h2>
