@@ -88,6 +88,13 @@
       <details class="account">
         <summary>신랑 측</summary>
         <div class="account-body">
+          <p>아버지 <strong>안장덕</strong></p>
+          <p class="account-number">농협 <span id="father-account-number">86702264908</span></p>
+          <button type="button" class="copy-account" id="copy-father-account" aria-label="안장덕 계좌번호 복사">계좌번호 복사</button>
+          <p class="copy-status" id="father-account-status" role="status" aria-live="polite"></p>
+          <input class="manual-copy" id="father-account-manual" aria-label="직접 복사할 안장덕 계좌번호" readonly hidden>
+        </div>
+        <div class="account-body">
           <p>어머니 <strong>박진숙</strong></p>
           <p class="account-number">NH농협 <span id="account-number">82114452048552</span></p>
           <button type="button" class="copy-account" id="copy-account">계좌번호 복사</button>
@@ -123,6 +130,11 @@
         status.textContent = '자동 복사가 어려워요. 아래 내용을 길게 눌러 복사해 주세요.';
       }
     }
+    document.getElementById('copy-father-account').addEventListener('click', () => {
+      copyText(document.getElementById('father-account-number').textContent.replace(/\s/g, ''),
+        document.getElementById('father-account-status'), document.getElementById('father-account-manual'),
+        '계좌번호가 복사되었습니다.');
+    });
     document.getElementById('copy-account').addEventListener('click', () => {
       copyText(document.getElementById('account-number').textContent.trim(),
         document.getElementById('account-status'), document.getElementById('account-manual'),
